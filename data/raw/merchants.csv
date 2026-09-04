@@ -1,0 +1,41 @@
+merchant_id,merchant_name,category,mcc,min_amount,max_amount,risk_threshold,tier,created_at
+mer_1001,Gaming Hub 1,Gaming & Digital Goods,mcc_7994,100,5000,66.7,Starter,2025-05-31T08:40:40.058680
+mer_1002,Electronics Hub 2,Electronics & Gadgets,mcc_5732,2000,85000,68.3,Starter,2025-11-24T08:40:40.058680
+mer_1003,Gaming Hub 3,Gaming & Digital Goods,mcc_7994,100,5000,76.1,Starter,2025-12-09T08:40:40.058680
+mer_1004,Travel Hub 4,Travel & Hospitality,mcc_4722,3000,45000,71.3,Enterprise,2025-12-03T08:40:40.058680
+mer_1005,Electronics Hub 5,Electronics & Gadgets,mcc_5732,2000,85000,68.5,Starter,2026-02-09T08:40:40.058680
+mer_1006,Travel Hub 6,Travel & Hospitality,mcc_4722,3000,45000,68.0,Starter,2025-01-03T08:40:40.058680
+mer_1007,Electronics Hub 7,Electronics & Gadgets,mcc_5732,2000,85000,71.7,Growth,2026-03-02T08:40:40.058680
+mer_1008,Electronics Hub 8,Electronics & Gadgets,mcc_5732,2000,85000,75.5,Growth,2025-05-28T08:40:40.058680
+mer_1009,Electronics Hub 9,Electronics & Gadgets,mcc_5732,2000,85000,68.2,Growth,2025-11-24T08:40:40.058680
+mer_1010,Fashion Hub 10,Fashion & Apparel,mcc_5651,500,8000,70.7,Growth,2025-03-21T08:40:40.058680
+mer_1011,Travel Hub 11,Travel & Hospitality,mcc_4722,3000,45000,69.0,Enterprise,2024-11-23T08:40:40.058680
+mer_1012,Travel Hub 12,Travel & Hospitality,mcc_4722,3000,45000,66.9,Growth,2025-12-18T08:40:40.058680
+mer_1013,Travel Hub 13,Travel & Hospitality,mcc_4722,3000,45000,69.4,Starter,2025-03-03T08:40:40.058680
+mer_1014,Travel Hub 14,Travel & Hospitality,mcc_4722,3000,45000,67.9,Enterprise,2026-01-21T08:40:40.058680
+mer_1015,Gaming Hub 15,Gaming & Digital Goods,mcc_7994,100,5000,68.4,Growth,2025-12-17T08:40:40.058680
+mer_1016,Electronics Hub 16,Electronics & Gadgets,mcc_5732,2000,85000,78.0,Growth,2025-05-28T08:40:40.058680
+mer_1017,Food Hub 17,Food & Quick Commerce,mcc_5411,150,2500,74.5,Growth,2025-09-23T08:40:40.058680
+mer_1018,SaaS Hub 18,SaaS & Subscriptions,mcc_5818,999,15000,70.3,Starter,2025-06-08T08:40:40.058680
+mer_1019,Gaming Hub 19,Gaming & Digital Goods,mcc_7994,100,5000,79.0,Starter,2025-12-25T08:40:40.058680
+mer_1020,Travel Hub 20,Travel & Hospitality,mcc_4722,3000,45000,74.5,Starter,2025-07-01T08:40:40.058680
+mer_1021,Electronics Hub 21,Electronics & Gadgets,mcc_5732,2000,85000,71.9,Growth,2025-07-27T08:40:40.058680
+mer_1022,Gaming Hub 22,Gaming & Digital Goods,mcc_7994,100,5000,69.9,Enterprise,2025-07-17T08:40:40.058680
+mer_1023,Fashion Hub 23,Fashion & Apparel,mcc_5651,500,8000,77.1,Growth,2025-06-07T08:40:40.058680
+mer_1024,Fashion Hub 24,Fashion & Apparel,mcc_5651,500,8000,68.2,Starter,2025-04-20T08:40:40.058680
+mer_1025,Electronics Hub 25,Electronics & Gadgets,mcc_5732,2000,85000,74.8,Growth,2024-11-24T08:40:40.058680
+mer_1026,Electronics Hub 26,Electronics & Gadgets,mcc_5732,2000,85000,69.0,Enterprise,2025-06-12T08:40:40.058680
+mer_1027,Gaming Hub 27,Gaming & Digital Goods,mcc_7994,100,5000,73.8,Starter,2025-01-24T08:40:40.058680
+mer_1028,SaaS Hub 28,SaaS & Subscriptions,mcc_5818,999,15000,68.3,Enterprise,2024-10-03T08:40:40.058680
+mer_1029,Food Hub 29,Food & Quick Commerce,mcc_5411,150,2500,66.4,Enterprise,2025-11-16T08:40:40.058680
+mer_1030,Electronics Hub 30,Electronics & Gadgets,mcc_5732,2000,85000,74.4,Starter,2024-12-31T08:40:40.058680
+mer_1031,Travel Hub 31,Travel & Hospitality,mcc_4722,3000,45000,66.0,Growth,2024-11-14T08:40:40.058680
+mer_1032,Travel Hub 32,Travel & Hospitality,mcc_4722,3000,45000,68.8,Starter,2026-02-25T08:40:40.058680
+mer_1033,Gaming Hub 33,Gaming & Digital Goods,mcc_7994,100,5000,75.8,Starter,2025-06-08T08:40:40.058680
+mer_1034,Gaming Hub 34,Gaming & Digital Goods,mcc_7994,100,5000,70.1,Growth,2024-12-18T08:40:40.058680
+mer_1035,Electronics Hub 35,Electronics & Gadgets,mcc_5732,2000,85000,71.8,Starter,2025-06-12T08:40:40.058680
+mer_1036,Travel Hub 36,Travel & Hospitality,mcc_4722,3000,45000,76.4,Starter,2025-11-20T08:40:40.058680
+mer_1037,Gaming Hub 37,Gaming & Digital Goods,mcc_7994,100,5000,69.5,Starter,2024-10-05T08:40:40.058680
+mer_1038,Travel Hub 38,Travel & Hospitality,mcc_4722,3000,45000,68.0,Growth,2025-09-24T08:40:40.058680
+mer_1039,Travel Hub 39,Travel & Hospitality,mcc_4722,3000,45000,79.3,Starter,2026-03-08T08:40:40.058680
+mer_1040,Travel Hub 40,Travel & Hospitality,mcc_4722,3000,45000,69.9,Enterprise,2025-11-14T08:40:40.058680

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RazorMind AI — Intelligent Payment Risk & Merchant Intelligence Platform</title>
+  <meta name="description" content="Production-grade AI FinTech platform combining real-time fraud detection, payment failure prediction, smart routing, and conversational merchant intelligence." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Feather Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body class="dark-theme">
+
+  <!-- Background Glow FX -->
+  <div class="glow-bg-top"></div>
+  <div class="glow-bg-bottom"></div>
+
+  <!-- App Wrapper -->
+  <div class="app-container">
+    
+    <!-- Top Navbar -->
+    <header class="navbar">
+      <div class="nav-brand">
+        <div class="logo-badge">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5"></path>
+            <path d="M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">RazorMind <span class="ai-badge">AI</span></div>
+          <div class="brand-sub">Intelligent Payment Risk & Merchant Intelligence</div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs" id="navTabs">
+        <button class="nav-tab active" data-tab="overview">
+          <i data-feather="grid"></i> Overview
+        </button>
+        <button class="nav-tab" data-tab="fraud-sim">
+          <i data-feather="shield"></i> Fraud Simulator
+        </button>
+        <button class="nav-tab" data-tab="smart-router">
+          <i data-feather="git-pull-request"></i> Smart Router
+        </button>
+        <button class="nav-tab" data-tab="assistant">
+          <i data-feather="message-square"></i> AI Assistant
+        </button>
+        <button class="nav-tab" data-tab="transactions">
+          <i data-feather="activity"></i> Audit Log
+        </button>
+      </nav>
+
+      <!-- System Status indicator -->
+      <div class="nav-status">
+        <div class="pulse-dot"></div>
+        <span class="status-label">GATEWAYS OPTIMAL</span>
+        <a href="/docs" target="_blank" class="api-link" title="Open API Documentation">API Docs</a>
+      </div>
+    </header>
+
+    <!-- Main Content Canvas -->
+    <main class="main-content">
+
+      <!-- ================= TAB 1: EXECUTIVE OVERVIEW ================= -->
+      <section id="tab-overview" class="tab-panel active">
+        <!-- KPI Cards Grid -->
+        <div class="kpi-grid">
+          <div class="kpi-card glass-panel" id="cardGmv">
+            <div class="kpi-header">
+              <span class="kpi-title">TOTAL PROCESSED GMV</span>
+              <div class="kpi-icon blue"><i data-feather="dollar-sign"></i></div>
+            </div>
+            <div class="kpi-value" id="kpiGmv">₹--</div>
+            <div class="kpi-foot positive">
+              <i data-feather="trending-up"></i>
+              <span id="kpiTxCount">--</span> Successful Payments
+            </div>
+          </div>
+
+          <div class="kpi-card glass-panel" id="cardSuccess">
+            <div class="kpi-header">
+              <span class="kpi-title">NETWORK SUCCESS RATE</span>
+              <div class="kpi-icon green"><i data-feather="check-circle"></i></div>
+            </div>
+            <div class="kpi-value" id="kpiSuccessRate">--%</div>
+            <div class="kpi-foot">
+              <span class="progress-bar-wrap">
+                <span class="progress-bar-fill" id="successProgress" style="width: 0%"></span>
+              </span>
+            </div>
+          </div>
+
+          <div class="kpi-card glass-panel" id="cardFraud">
+            <div class="kpi-header">
+              <span class="kpi-title">FRAUD LOSSES PREVENTED</span>
+              <div class="kpi-icon purple"><i data-feather="shield"></i></div>
+            </div>
+            <div class="kpi-value" id="kpiPrevented">₹--</div>
+            <div class="kpi-foot warning">
+              <i data-feather="alert-triangle"></i>
+              <span id="kpiFraudCount">--</span> Intercepted Threats
+            </div>
+          </div>
+
+          <div class="kpi-card glass-panel" id="cardFailure">
+            <div class="kpi-header">
+              <span class="kpi-title">LOST REVENUE (FAILURES)</span>
+              <div class="kpi-icon red"><i data-feather="alert-octagon"></i></div>
+            </div>
+            <div class="kpi-value" id="kpiFailedGmv">₹--</div>
+            <div class="kpi-foot negative">
+              <span id="kpiFailedCount">--</span> Bank / Network Drops
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Layout Grid -->
+        <div class="charts-grid">
+          <!-- 14-Day Revenue & Success Timeline -->
+          <div class="chart-card glass-panel col-span-8">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">Revenue & Gateway Success Trends (Last 14 Days)</h3>
+                <p class="panel-sub">Volume processed (INR) vs. Daily network completion percentage</p>
+              </div>
+              <span class="badge-tag">Daily Aggregation</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="revenueTrendChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Bank Health & Success Rates -->
+          <div class="chart-card glass-panel col-span-4">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">Bank Gateway Health</h3>
+                <p class="panel-sub">Current uptime & success rates</p>
+              </div>
+              <span class="badge-tag pulse">Live</span>
+            </div>
+            <div class="bank-list" id="bankList">
+              <div class="loading-state">Loading bank metrics...</div>
+            </div>
+          </div>
+
+          <!-- Payment Method Breakdown -->
+          <div class="chart-card glass-panel col-span-6">
+            <div class="panel-header">
+              <h3 class="panel-title">Payment Method Volume (UPI, Cards, NetBanking)</h3>
+            </div>
+            <div class="chart-container-sm">
+              <canvas id="paymentMethodChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Quick Root Cause Teaser -->
+          <div class="chart-card glass-panel col-span-6">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">Automated Merchant Root-Cause Attribution</h3>
+                <p class="panel-sub">Instant AI diagnostics for revenue drops & downtime spikes</p>
+              </div>
+            </div>
+            <div class="root-cause-box" id="rootCauseBox">
+              <div class="loading-state">Running root cause diagnostics...</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 2: REAL-TIME FRAUD SIMULATOR ================= -->
+      <section id="tab-fraud-sim" class="tab-panel">
+        <div class="sim-grid">
+          <!-- Input Form Panel -->
+          <div class="glass-panel sim-form-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">Real-Time Risk Simulator (Thirdwatch Engine)</h3>
+                <p class="panel-sub">Tweak transaction behavioral signals and test live ML inference</p>
+              </div>
+              <button class="btn btn-secondary btn-sm" id="btnPresetFraud">Preset: Attack Ring</button>
+              <button class="btn btn-secondary btn-sm" id="btnPresetNormal">Preset: Safe Order</button>
+            </div>
+
+            <form id="fraudSimForm" class="sim-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="simAmount">Transaction Amount (₹)</label>
+                  <input type="number" id="simAmount" value="38500" min="10" max="500000" step="100" required />
+                </div>
+                <div class="form-group">
+                  <label for="simMethod">Payment Method</label>
+                  <select id="simMethod">
+                    <option value="card_credit">Credit Card (High Risk Vector)</option>
+                    <option value="upi">UPI (VPA)</option>
+                    <option value="card_debit">Debit Card</option>
+                    <option value="netbanking">NetBanking</option>
+                    <option value="wallet">Digital Wallet</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="simBank">Bank Switch</label>
+                  <select id="simBank">
+                    <option value="HDFC">HDFC Bank</option>
+                    <option value="ICICI">ICICI Bank</option>
+                    <option value="SBI">State Bank of India</option>
+                    <option value="AXIS">Axis Bank</option>
+                    <option value="KOTAK">Kotak Mahindra Bank</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="simDevice">Device Fingerprint</label>
+                  <select id="simDevice">
+                    <option value="desktop_chrome">Desktop Chrome (Unrecognized)</option>
+                    <option value="mobile_android">Mobile Android</option>
+                    <option value="mobile_ios">Mobile iOS</option>
+                    <option value="desktop_windows">Desktop Windows</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="simVelocity1h">Velocity (Attempts in 1 hour)</label>
+                  <input type="number" id="simVelocity1h" value="4" min="0" max="20" />
+                </div>
+                <div class="form-group">
+                  <label for="simRatio">Amount vs User Avg Ratio</label>
+                  <input type="number" id="simRatio" value="4.2" min="0.1" max="25.0" step="0.1" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="simGeoDistance">Billing vs Shipping Distance (km)</label>
+                  <input type="number" id="simGeoDistance" value="1250" min="0" max="4000" />
+                </div>
+                <div class="form-group">
+                  <label for="simHour">Hour of Attempt (0-23)</label>
+                  <input type="number" id="simHour" value="3" min="0" max="23" />
+                </div>
+              </div>
+
+              <div class="form-checkbox">
+                <input type="checkbox" id="simVpn" checked />
+                <label for="simVpn">Anonymous VPN / Residential Proxy IP Detected</label>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block" id="btnRunFraudSim">
+                <i data-feather="zap"></i> Score Transaction Risk
+              </button>
+            </form>
+          </div>
+
+          <!-- Output Score Card Panel -->
+          <div class="glass-panel sim-result-panel">
+            <div class="panel-header">
+              <h3 class="panel-title">Model Evaluation & Decision</h3>
+              <span class="badge-tag" id="simTimestamp">Ready</span>
+            </div>
+
+            <div class="risk-gauge-wrap">
+              <div class="risk-gauge" id="riskGauge">
+                <div class="gauge-center">
+                  <span class="gauge-number" id="gaugeScore">--</span>
+                  <span class="gauge-label">RISK SCORE</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="decision-banner" id="decisionBanner">
+              <div class="decision-tier" id="decisionTier">AWAITING EVALUATION</div>
+              <div class="decision-action" id="decisionAction">Submit transaction parameters to evaluate</div>
+            </div>
+
+            <div class="risk-factors-section">
+              <h4>Decision Factors & Explainability (XAI)</h4>
+              <ul class="factors-list" id="factorsList">
+                <li class="placeholder-factor">No evaluation performed yet.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 3: PAYMENT SUCCESS & SMART ROUTING ================= -->
+      <section id="tab-smart-router" class="tab-panel">
+        <div class="router-grid">
+          <!-- Router Simulation Box -->
+          <div class="glass-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">Razorpay Optimizer — Dynamic Fallback Router</h3>
+                <p class="panel-sub">Simulate gateway outages and view dynamic rerouting intelligence</p>
+              </div>
+            </div>
+
+            <div class="router-test-controls">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Simulated Bank Switch</label>
+                  <select id="routerBank">
+                    <option value="SBI" selected>SBI (Downtime Spike Simulated)</option>
+                    <option value="HDFC">HDFC Bank</option>
+                    <option value="ICICI">ICICI Bank</option>
+                    <option value="AXIS">Axis Bank</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Payment Method</label>
+                  <select id="routerMethod">
+                    <option value="upi" selected>UPI (Unified Payments Interface)</option>
+                    <option value="netbanking">NetBanking</option>
+                    <option value="card_credit">Credit Card</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Order Amount (₹)</label>
+                  <input type="number" id="routerAmount" value="2499" />
+                </div>
+              </div>
+              <button class="btn btn-primary" id="btnTestRoute">
+                <i data-feather="cpu"></i> Evaluate Route & Run Optimizer
+              </button>
+            </div>
+
+            <div class="routing-visualizer" id="routingVisualizer">
+              <div class="route-node source-node">
+                <span class="node-badge">Checkout Cart</span>
+                <span class="node-name">Customer Order</span>
+              </div>
+              <div class="route-arrow">
+                <div class="arrow-line"></div>
+                <span class="arrow-label">Evaluating Latency</span>
+              </div>
+              <div class="route-node gateway-node" id="nodeOriginalRoute">
+                <span class="node-badge">Primary Gateway</span>
+                <span class="node-name" id="nodeOriginalName">SBI UPI</span>
+                <span class="node-health" id="nodeOriginalHealth">Assessing...</span>
+              </div>
+              <div class="route-arrow switch-arrow" id="switchArrow">
+                <div class="arrow-line dashed"></div>
+                <span class="arrow-label">Smart Reroute</span>
+              </div>
+              <div class="route-node fallback-node" id="nodeFallbackRoute">
+                <span class="node-badge">Dynamic Reroute</span>
+                <span class="node-name" id="nodeFallbackName">ICICI UPI</span>
+                <span class="node-health success" id="nodeFallbackHealth">Uptime 98.4%</span>
+              </div>
+            </div>
+
+            <div class="route-analysis-card glass-panel" id="routeAnalysisCard">
+              <div class="route-status-headline" id="routeHeadline">
+                Run an evaluation above to test smart dynamic routing.
+              </div>
+              <div class="alternatives-table-wrap">
+                <table class="data-table" id="alternativesTable">
+                  <thead>
+                    <tr>
+                      <th>Candidate Route</th>
+                      <th>Predicted Success</th>
+                      <th>Failure Risk</th>
+                      <th>Routing Decision</th>
+                    </tr>
+                  </thead>
+                  <tbody id="alternativesTableBody">
+                    <tr><td colspan="4" class="text-center">No simulation active</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 4: AI MERCHANT ASSISTANT ================= -->
+      <section id="tab-assistant" class="tab-panel">
+        <div class="assistant-layout glass-panel">
+          <!-- Chat Header -->
+          <div class="assistant-header">
+            <div class="assistant-avatar">
+              <i data-feather="bot"></i>
+            </div>
+            <div class="assistant-info">
+              <h3>RazorMind Conversational Intelligence</h3>
+              <p>Natural Language FinTech Insights, Churn Detection & Anomaly Audits</p>
+            </div>
+            <div class="assistant-status">
+              <span class="pulse-dot"></span> Online
+            </div>
+          </div>
+
+          <!-- Suggested Prompt Chips -->
+          <div class="prompt-chips">
+            <span class="chip-label">Quick Insights:</span>
+            <button class="chip" data-prompt="What caused my revenue to decrease this week?">
+              📉 What caused my revenue to decrease this week?
+            </button>
+            <button class="chip" data-prompt="Which customers are most likely to stop purchasing?">
+              👥 Which customers are most likely to stop purchasing?
+            </button>
+            <button class="chip" data-prompt="Show me unusual transactions.">
+              🚨 Show me unusual transactions.
+            </button>
+            <button class="chip" data-prompt="How are banks performing?">
+              🏦 How are banks performing?
+            </button>
+          </div>
+
+          <!-- Chat Conversation Log -->
+          <div class="chat-log" id="chatLog">
+            <div class="chat-message bot">
+              <div class="msg-avatar"><i data-feather="bot"></i></div>
+              <div class="msg-content">
+                <p>Hello! I am your <strong>RazorMind AI Assistant</strong>. I continuously analyze your payment flows, issuer bank health, customer churn probabilities, and fraud exposure.</p>
+                <p>You can ask me questions in plain English, such as:</p>
+                <ul>
+                  <li><em>"What caused my revenue to decrease this week?"</em></li>
+                  <li><em>"Which customers are most likely to stop purchasing?"</em></li>
+                  <li><em>"Show me unusual transactions."</em></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Input Box -->
+          <form id="chatForm" class="chat-input-bar">
+            <input type="text" id="chatInput" placeholder="Ask RazorMind AI about revenue, fraud anomalies, or bank downtimes..." autocomplete="off" required />
+            <button type="submit" class="btn btn-primary" id="btnSendChat">
+              <i data-feather="send"></i>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ================= TAB 5: TRANSACTION AUDIT LOG ================= -->
+      <section id="tab-transactions" class="tab-panel">
+        <div class="glass-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Real-Time Transaction Stream & Audit Trail</h3>
+              <p class="panel-sub">Inspect individual payment payloads, risk scores, and failure attributions</p>
+            </div>
+            <div class="filter-controls">
+              <select id="filterStatus" class="select-sm">
+                <option value="">All Statuses</option>
+                <option value="captured">Captured (Success)</option>
+                <option value="failed">Failed</option>
+                <option value="refunded">Refunded</option>
+              </select>
+              <select id="filterFraud" class="select-sm">
+                <option value="">All Risk Tiers</option>
+                <option value="1">Fraud Only (1)</option>
+                <option value="0">Legitimate (0)</option>
+              </select>
+              <button class="btn btn-secondary btn-sm" id="btnRefreshTx">
+                <i data-feather="refresh-cw"></i> Refresh
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="txTable">
+              <thead>
+                <tr>
+                  <th>Transaction ID</th>
+                  <th>Amount</th>
+                  <th>Method</th>
+                  <th>Bank</th>
+                  <th>Status</th>
+                  <th>Failure Reason</th>
+                  <th>Risk Score</th>
+                  <th>Fraud Flag</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="txTableBody">
+                <tr><td colspan="9" class="text-center">Loading live transactions...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div>RazorMind AI &bull; Built for Razorpay Internship Assessment &bull; Real-Time Risk & Merchant Intelligence</div>
+      <div class="footer-links">
+        <a href="/docs" target="_blank">FastAPI Swagger</a>
+        <span>&bull;</span>
+        <a href="https://github.com/razorpay" target="_blank">Razorpay Architecture Reference</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # RazorMind AI Core Backend & Web Dashboard
+  razormind-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: razormind_core
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_PATH=/app/database/razormind.db
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    volumes:
+      - ./backend/artifacts:/app/backend/artifacts
+      - ./data/raw:/app/data/raw
+      - ./database:/app/database
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Optional Streamlit Companion Interface
+  razormind-streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: razormind_streamlit
+    command: ["streamlit", "run", "frontend/streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+    environment:
+      - DATABASE_PATH=/app/database/razormind.db
+    volumes:
+      - ./backend/artifacts:/app/backend/artifacts
+      - ./data/raw:/app/data/raw
+      - ./database:/app/database
+    depends_on:
+      - razormind-app
+    restart: unless-stopped
+
+  # Enterprise PostgreSQL Option (Alternative to SQLite)
+  db:
+    image: postgres:15-alpine
+    container_name: razormind_postgres
+    environment:
+      POSTGRES_DB: razormind
+      POSTGRES_USER: razorpay_admin
+      POSTGRES_PASSWORD: razorpay_secure_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+
+volumes:
+  pgdata:
