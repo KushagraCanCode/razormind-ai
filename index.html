@@ -17,6 +17,8 @@
   <!-- Feather Icons -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body class="dark-theme">
@@ -64,10 +66,12 @@
       </nav>
 
       <!-- System Status indicator -->
-      <div class="nav-status">
-        <div class="pulse-dot"></div>
-        <span class="status-label">GATEWAYS OPTIMAL</span>
-        <a href="/docs" target="_blank" class="api-link" title="Open API Documentation">API Docs</a>
+      <div class="nav-status" id="navStatusBadge" title="Live connection status. Click to verify & relink.">
+        <div class="pulse-dot" id="livePulseDot"></div>
+        <span class="status-label" id="connectionStatus">LIVE &bull; CONNECTED</span>
+        <button id="btnRelink" class="btn-relink" title="Relink dashboard to backend"><i data-feather="refresh-cw"></i> Relink</button>
+        <a href="/docs" id="apiDocsLink" target="_blank" class="api-link" title="Open API Documentation">API Docs</a>
+        <a href="http://localhost:8501" target="_blank" class="api-link streamlit-link" title="Open Streamlit Companion Dashboard">Streamlit</a>
       </div>
     </header>
 
@@ -513,6 +517,7 @@
 
   </div>
 
+  <script src="app.js"></script>
   <script src="/static/app.js"></script>
 </body>
 </html>
