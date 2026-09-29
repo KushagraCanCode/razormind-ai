@@ -234,6 +234,42 @@ body.dark-theme {
   background: rgba(12, 140, 233, 0.1);
 }
 
+.btn-relink {
+  background: rgba(12, 140, 233, 0.12);
+  border: 1px solid rgba(12, 140, 233, 0.35);
+  color: var(--razor-blue);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+}
+
+.btn-relink:hover {
+  background: rgba(12, 140, 233, 0.25);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(12, 140, 233, 0.3);
+}
+
+.btn-relink svg {
+  width: 13px;
+  height: 13px;
+}
+
+.streamlit-link {
+  border-color: rgba(139, 92, 246, 0.3);
+  color: #a78bfa;
+}
+
+.streamlit-link:hover {
+  background: rgba(139, 92, 246, 0.15);
+  color: #c4b5fd;
+}
+
 /* Main Content */
 .main-content {
   flex: 1;

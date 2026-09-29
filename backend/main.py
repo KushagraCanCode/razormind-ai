@@ -62,11 +62,29 @@ if os.path.exists(FRONTEND_DIR):
     app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
     @app.get("/", include_in_schema=False)
+    @app.get("/dashboard", include_in_schema=False)
+    @app.get("/dashboard/", include_in_schema=False)
+    @app.get("/app", include_in_schema=False)
+    @app.get("/index.html", include_in_schema=False)
     def serve_frontend_root():
         index_file = os.path.join(FRONTEND_DIR, "index.html")
         if os.path.exists(index_file):
             return FileResponse(index_file)
         return {"message": "Welcome to RazorMind AI API", "docs": "/docs"}
+
+    @app.get("/styles.css", include_in_schema=False)
+    def serve_styles_direct():
+        css_file = os.path.join(FRONTEND_DIR, "styles.css")
+        if os.path.exists(css_file):
+            return FileResponse(css_file, media_type="text/css")
+        return {"error": "styles.css not found"}
+
+    @app.get("/app.js", include_in_schema=False)
+    def serve_app_js_direct():
+        js_file = os.path.join(FRONTEND_DIR, "app.js")
+        if os.path.exists(js_file):
+            return FileResponse(js_file, media_type="application/javascript")
+        return {"error": "app.js not found"}
 
 @app.get("/health", tags=["Health"])
 def health_check():

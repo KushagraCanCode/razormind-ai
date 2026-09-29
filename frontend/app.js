@@ -31,15 +31,56 @@ document.addEventListener("DOMContentLoaded", () => {
   let trendChartInstance = null;
   let methodChartInstance = null;
 
+  // Dynamic API Base URL resolution:
+  // If served directly from FastAPI (port 8000), use relative paths ("/api/...").
+  // If served from Live Server (port 5500), Vite (3000/5173), or file://, link directly to http://127.0.0.1:8000.
+  const API_BASE = (window.location.port === "8000") ? "" : "http://127.0.0.1:8000";
+
+  // Backend Heartbeat & Live Relink Status
+  const statusLabel = document.getElementById("connectionStatus");
+  const livePulseDot = document.getElementById("livePulseDot") || document.querySelector(".pulse-dot");
+  const btnRelink = document.getElementById("btnRelink");
+  const apiDocsLink = document.getElementById("apiDocsLink");
+  if (apiDocsLink) {
+    apiDocsLink.href = `${API_BASE || ''}/docs`;
+  }
+
+  async function checkBackendHealth() {
+    try {
+      const res = await fetch(`${API_BASE}/health`, { cache: "no-store" });
+      if (res.ok) {
+        if (statusLabel) {
+          statusLabel.innerText = "LIVE • CONNECTED";
+          statusLabel.style.color = "var(--emerald)";
+        }
+        if (livePulseDot) {
+          livePulseDot.style.background = "var(--emerald)";
+          livePulseDot.style.boxShadow = "0 0 10px rgba(16, 185, 129, 0.7)";
+        }
+        return true;
+      }
+    } catch (e) {
+      if (statusLabel) {
+        statusLabel.innerText = "OFFLINE • CLICK RELINK";
+        statusLabel.style.color = "var(--crimson)";
+      }
+      if (livePulseDot) {
+        livePulseDot.style.background = "var(--crimson)";
+        livePulseDot.style.boxShadow = "0 0 10px rgba(239, 68, 68, 0.7)";
+      }
+      return false;
+    }
+  }
+
   // ================= 1. OVERVIEW & METRICS =================
   async function loadOverviewData() {
     try {
       const [overviewRes, trendsRes, banksRes, methodsRes, diagnosisRes] = await Promise.all([
-        fetch("/api/analytics/overview").then(r => r.json()),
-        fetch("/api/analytics/trends?days=14").then(r => r.json()),
-        fetch("/api/analytics/banks").then(r => r.json()),
-        fetch("/api/analytics/methods").then(r => r.json()),
-        fetch("/api/analytics/revenue-diagnosis").then(r => r.json())
+        fetch(`${API_BASE}/api/analytics/overview`).then(r => r.json()),
+        fetch(`${API_BASE}/api/analytics/trends?days=14`).then(r => r.json()),
+        fetch(`${API_BASE}/api/analytics/banks`).then(r => r.json()),
+        fetch(`${API_BASE}/api/analytics/methods`).then(r => r.json()),
+        fetch(`${API_BASE}/api/analytics/revenue-diagnosis`).then(r => r.json())
       ]);
 
       // Populate KPIs
@@ -246,7 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     try {
-      const res = await fetch("/api/fraud/evaluate", {
+      const res = await fetch(`${API_BASE}/api/fraud/evaluate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -290,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const amount = parseFloat(document.getElementById("routerAmount").value);
 
     try {
-      const res = await fetch("/api/predict/success", {
+      const res = await fetch(`${API_BASE}/api/predict/success`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -369,7 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const typingIndicator = appendChatMessage("bot", "Analyzing platform risk data and financial trends...");
 
     try {
-      const res = await fetch("/api/assistant/chat", {
+      const res = await fetch(`${API_BASE}/api/assistant/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: query })
@@ -433,7 +474,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const fraud = document.getElementById("filterFraud").value;
     const tbody = document.getElementById("txTableBody");
 
-    let url = "/api/transactions?limit=30";
+    let url = `${API_BASE}/api/transactions?limit=30`;
     if (status) url += `&status=${status}`;
     if (fraud) url += `&is_fraud=${fraud}`;
 
@@ -476,7 +517,45 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("filterStatus").addEventListener("change", loadTransactions);
   document.getElementById("filterFraud").addEventListener("change", loadTransactions);
 
-  // Initial Load
+  // Relink & Refresh Dashboard
+  async function relinkDashboard() {
+    if (btnRelink) {
+      btnRelink.innerHTML = `<i data-feather="loader"></i> Relinking...`;
+      if (window.feather) feather.replace();
+    }
+    await checkBackendHealth();
+    await Promise.all([loadOverviewData(), loadTransactions()]);
+    if (btnRelink) {
+      setTimeout(() => {
+        btnRelink.innerHTML = `<i data-feather="check"></i> Linked`;
+        if (window.feather) feather.replace();
+        setTimeout(() => {
+          btnRelink.innerHTML = `<i data-feather="refresh-cw"></i> Relink`;
+          if (window.feather) feather.replace();
+        }, 1200);
+      }, 400);
+    }
+  }
+
+  if (btnRelink) {
+    btnRelink.addEventListener("click", (e) => {
+      e.stopPropagation();
+      relinkDashboard();
+    });
+  }
+
+  const navStatusBadge = document.getElementById("navStatusBadge");
+  if (navStatusBadge) {
+    navStatusBadge.addEventListener("click", () => {
+      relinkDashboard();
+    });
+  }
+
+  // Periodic heartbeat every 10 seconds to keep dashboard linked
+  setInterval(checkBackendHealth, 10000);
+
+  // Initial Load & Health Check
+  checkBackendHealth();
   loadOverviewData();
   loadTransactions();
 });
